@@ -1,0 +1,19 @@
+# Core app (baselines, data loading, metrics, UI)
+numpy>=1.26
+scipy>=1.11
+scikit-image>=0.22
+pandas>=2.0
+pillow>=10.0
+rasterio>=1.3
+affine>=2.4
+pystac-client>=0.8
+planetary-computer>=1.0
+streamlit>=1.40
+folium>=0.17
+streamlit-folium>=0.22
+
+# Deep-learning models (Satlas ESRGAN, SEN2SR-Lite, custom TorchScript/PyTorch)
+torch>=2.2           # install the cu126 build first (see README); pip keeps it
+sen2sr>=0.8
+mlstac
+matplotlib          # imported by the SEN2SR model loader that mlstac downloads

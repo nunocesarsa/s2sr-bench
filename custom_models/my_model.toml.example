@@ -1,0 +1,22 @@
+# Copy to `my_model.toml` (any name ending in .toml) and point `path` at your weights.
+# The model then appears in the app and CLI under the key "custom_my_model".
+
+name = "My TorchScript model"
+description = "Describe training data and what to expect"
+format = "torchscript"            # torchscript | onnx | pytorch
+path = "weights/my_model.pt"      # relative to this file
+
+# Band contract: the app feeds reflectance (0..1) for in_bands, all on the in_res grid,
+# shaped (1, C, H, W). The model must return (1, len(out_bands), H*k, W*k), k = in_res/out_res.
+in_bands  = ["B04", "B03", "B02", "B08"]
+out_bands = ["B04", "B03", "B02", "B08"]
+in_res  = 10
+out_res = 2.5
+
+input_scale  = 1.0     # model input  = reflectance * input_scale   (e.g. 10000 for DN-trained models)
+output_scale = 1.0     # reflectance  = model output / output_scale
+tile = 128             # patch size for tiled inference (0 = whole image)
+overlap = 16
+
+# For format = "pytorch" (a state_dict .pth), name a function that builds the nn.Module.
+# It is looked up in a .py file next to this TOML:   factory = "my_arch:build_model"
